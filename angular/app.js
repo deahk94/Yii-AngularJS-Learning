@@ -385,7 +385,7 @@ angular.module('app', ['ui.bootstrap', 'ngMessages', 'ui.router'])
 .component('walletPage' , {
 	templateUrl : 'http://localhost/basic/web/product/template?view=wallet',
 	controllerAs : 'walletCtrl',
-	controller : ['$window', '$rootScope', '$state', 'action_record_list', 'action_wallet', 'localStorage', function($window, $rootScope, $state, action_record_list, action_wallet, localStorage) {
+	controller : ['$window', '$rootScope', '$scope', '$state', 'action_record_list', 'action_wallet', 'localStorage', function($window, $rootScope, $scope, $state, action_record_list, action_wallet, localStorage) {
 		var $ctrl = this;
 		var getQuery = {
 			token : null,
@@ -394,6 +394,7 @@ angular.module('app', ['ui.bootstrap', 'ngMessages', 'ui.router'])
 
 		$ctrl.$onInit = function () {
 			$ctrl.currentPage = 1;
+			$ctrl.itemsPerPage = 12;
 			getQuery.token = localStorage.get('token');
 			//console.log(getQuery);
 
@@ -401,10 +402,11 @@ angular.module('app', ['ui.bootstrap', 'ngMessages', 'ui.router'])
 			{
 				action_record_list(getQuery)
 				.then(function (response) {
-					//console.log(response);
 					if (response.status === 200) {
 						$ctrl.record_list = response.data; //Exposed to view
 						$ctrl.record_total = Object.keys(response.data).length;
+						$ctrl.setPagingData();
+						
 						$rootScope.records = $ctrl.record_list;
 					} else if (response.status === 401) {
 						localStorage.remove('token');
@@ -414,7 +416,6 @@ angular.module('app', ['ui.bootstrap', 'ngMessages', 'ui.router'])
 
 				action_wallet(getQuery)
 				.then(function (response) {
-					//console.log(response);
 					if (response.status === 200) {
 						$ctrl.walletBalance = response.data.wallet.amount;
 					} else if (response.status === 401) {
@@ -428,6 +429,11 @@ angular.module('app', ['ui.bootstrap', 'ngMessages', 'ui.router'])
 				console.log('Token not found!');
 				$state.go('login');
 			}
+		}
+
+		$ctrl.setPagingData = function () {
+			var pagedData = $ctrl.record_list.slice(($ctrl.currentPage - 1) * $ctrl.itemsPerPage, $ctrl.currentPage * $ctrl.itemsPerPage);
+			$ctrl.pageData = pagedData;
 		}
 	}]
 })

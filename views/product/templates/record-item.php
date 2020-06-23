@@ -9,7 +9,6 @@
 		<table class="table table-responsive">
 			<thead>
 				<tr>
-					<th><label>User ID</label></th>
 					<th><label>Product Name (CODE)</label></th>
 					<th><label>Quantity</label></th>
 					<th><label>Price</label></th>
@@ -18,7 +17,6 @@
 			</thead>
 			<tbody>
 				<tr>
-					<td>{{recordItemCtrl.record.by_user}}</td>
 					<td>{{recordItemCtrl.record.product_name}} ({{recordItemCtrl.record.product_code}})</td>
 					<td>{{recordItemCtrl.record.quantity}}</td>
 					<td>{{recordItemCtrl.record.price | currency : 'MYR ' : 2 }}</td>
