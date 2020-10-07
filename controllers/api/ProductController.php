@@ -284,7 +284,7 @@ class ProductController extends \yii\rest\Controller
 		                        ->identifiedBy($userid, true) // Configures the id (jti claim), replicating as a header item
 		                        ->issuedAt($time) // Configures the time that the token was issue (iat claim)
 		                        ->canOnlyBeUsedAfter($time) // Configures the time that the token can be used (nbf claim)
-		                        ->expiresAt($time + 600) // Configures the expiration time of the token (exp claim)
+		                        ->expiresAt($time + 6000) // Configures the expiration time of the token (exp claim)
 		                        //->setRegisteredClaim('uid', 1, true) // Configures a new claim, called "uid"
 		                        ->sign($signer, new Key($key))
 		                        ->getToken(); // Retrieves the generated token

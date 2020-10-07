@@ -106,7 +106,7 @@ class RecordSearchForm extends Model
 		$query->andFilterWhere(['<=', 't.price', $this->max_price]);
 		$query->andFilterWhere(['>=', 't.total_price', $this->min_total]);
 		$query->andFilterWhere(['<=', 't.total_price', $this->max_total]);
-		
+
 		return $query;
 	}
 }

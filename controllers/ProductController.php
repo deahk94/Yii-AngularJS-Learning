@@ -32,7 +32,7 @@ class ProductController extends \yii\web\Controller
 				'rules' => [
 					[
 						'allow' => true,
-						'roles' => ['@'],
+						'roles' => ['?'],
 					],
 				],
 			],
@@ -208,7 +208,7 @@ class ProductController extends \yii\web\Controller
 				} catch (\Exception $e) {
 					$dbTran->rollBack();
 				}
-				
+
 				return $this->redirect('wallet');
 			}
 			else

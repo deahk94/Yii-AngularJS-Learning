@@ -23,7 +23,7 @@ class m200611_093216_create_product_table extends Migration
             'updated_at' => $this->timestamp()->null()->append('ON UPDATE CURRENT_TIMESTAMP'),
             'deleted_at' => $this->timestamp()->null(),
         ], 'engine = InnoDb charset = utf8');
-        
+
         $this->addForeignKey('product_fk_userid', '{{%product}}', 'by_user', 'users', 'id', 'CASCADE', 'CASCADE');
         $this->createIndex('product_idx_1', '{{%product}}', ['code', 'deleted_at']);
     }

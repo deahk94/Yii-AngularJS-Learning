@@ -7,8 +7,11 @@
 
 namespace app\commands;
 
+use Yii;
 use yii\console\Controller;
 use yii\console\ExitCode;
+use yii\httpclient\Client;
+use app\components\myClient;
 
 /**
  * This command echoes the first argument that you have entered.
@@ -27,8 +30,33 @@ class HelloController extends Controller
      */
     public function actionIndex($message = 'hello world')
     {
-        echo $message . "\n";
+        echo "Your messsage : ".$message . "\n";
 
         return ExitCode::OK;
     }
+
+    // yii hello/hello
+    public function actionHello()
+    {
+        echo 'Hello!';
+    }
+
+    // yii hello/list-record
+    public function actionListRecord()
+    {
+        $myClient = new myClient;
+        $response = $myClient->getRecordList();
+
+        echo var_export($response,1);
+    }
+
+    // yii hello/wallet-balance
+    public function actionWalletBalance()
+    {
+        $myClient = new myClient;
+        $response = $myClient->getWalletBalance();
+
+        echo var_export($response,1);
+    }
+
 }
